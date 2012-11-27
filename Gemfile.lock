@@ -1,0 +1,20 @@
+PATH
+  remote: .
+  specs:
+    rack-qiniu_mock (0.0.1)
+      mini_magick
+      rack
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    mini_magick (3.4)
+      subexec (~> 0.2.1)
+    rack (1.4.1)
+    subexec (0.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rack-qiniu_mock!
