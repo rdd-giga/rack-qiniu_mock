@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["lidaobing@gmail.com"]
   gem.description   = %q{qiniutek.com image resize service mocker}
   gem.summary       = %q{mock qiniutek.com image resize service so you can use image resize service under development}
-  gem.homepage      = "https://github.com/lidaobing/qiniu_mock"
+  gem.homepage      = "https://github.com/rdd-giga/rack-qiniu_mock"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
