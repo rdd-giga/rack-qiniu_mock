@@ -1,24 +1,50 @@
 # Rack::QiniuMock
 
-TODO: Write a gem description
+七牛云存储的开发辅助工具，方便地支持在本地进行图片缩放。
 
-## Installation
+七牛云存储的反向代理CDN+图片缩放的服务很好用，但有一个问题，在开发环境下，无法享受到该服务。这个 gem 提供了在开发环境下模拟七牛云存储基本图片缩放的功能。
 
-Add this line to your application's Gemfile:
+## 使用方法
 
-    gem 'rack-qiniu_mock'
+完整的范例参考: https://github.com/lidaobing/paperclip-qiniu-example/tree/local_storage
 
-And then execute:
+* 将如下一行加入到你的 Rails 应用的 `Gemfile
 
-    $ bundle
+```ruby
+gem 'rack-qiniu_mock', :group => :development
+```
 
-Or install it yourself as:
+* 在 `config/environments/development.rb` 中间加入如下一行
 
-    $ gem install rack-qiniu_mock
+```ruby
+config.middleware.insert_after ActionDispatch::Static, ::Rack::QiniuMock
+```
 
-## Usage
+* 创建 `config/qiniu_mock.yml`, 内容如下
 
-TODO: Write usage instructions here
+```yaml
+separator: '-'
+suffixs:
+  large: ['resize', '660x400']
+  medium: ['resize', '220x150']
+  small: ['resize_with_crop', '50x50']
+```
+
+* 下载 `https://raw.github.com/lidaobing/paperclip-qiniu-example/local_storage/config/initializers/qiniu_image.rb` 到 `config/initializers/qiniu_image.rb`
+
+* 修改 image_tag 为如下的形式
+
+```ruby
+<%= image_tag qiniu_image(image.file, "medium")%>
+```
+
+其中 `image.file` 为 `Paperclip::Attachment`, `medium` 为你想使用的变换格式。
+
+
+## TODO
+
+* 合并 qiniu_image 到该 gem
+* 支持其他格式类型
 
 ## Contributing
 
