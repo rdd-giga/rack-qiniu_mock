@@ -1,31 +1,14 @@
 require "mini_magick"
+require 'yaml'
 
 module Rack::QiniuMock
   class Context
     def initialize(app, opts={})
       @app = app
-      @separator = '-'
-      @suffixs = {
-        "c698_250.jpg" => [:resize, '698x250'],
-        "c660_600.jpg" => [:resize, '660x600'],
-        'c660_400.jpg' => [:resize, '660x400'],
-        'c400_300.jpg' => [:resize, '400x300'],
-        'c350_227.jpg' => [:resize, '350x227'],
-        'c218_600.jpg' => [:resize, '218x600'],
-        'c218_134.jpg' => [:resize, '218x134'],
-        'c200.jpg' => [:resize, '200x200'],
-        'c175_115.jpg' => [:resize, '175x115'],
-        'c158_105.jpg' => [:resize, '158x105'],
-        'c100.jpg' => [:resize, '70x70'],
-        'c59.jpg' => [:resize, '59x59'],
-        'c49.jpg' => [:resize, '49x49'],
-        "d146.jpg" => [:resize_with_crop, '146x146'],
-        "d116.jpg" => [:resize_with_crop, '116x116'],
-        "d73.jpg" => [:resize_with_crop, '73x73'],
-        "d54.jpg" => [:resize_with_crop, '54x54'],
-        "d49.jpg" => [:resize_with_crop, '49x49'],
-      }
       @root = File.expand_path("public", Rails.root)
+      @config = YAML.load_file(File.expand_path("config/qiniu_mock.yml", Rails.root))
+      @separator = @config['separator'] || '-'
+      @suffixs = @config['suffixs'] || {}
       yield self if block_given?
     end
 
