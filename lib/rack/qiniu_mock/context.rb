@@ -5,8 +5,9 @@ module Rack::QiniuMock
   class Context
     def initialize(app, opts={})
       @app = app
-      @root = File.expand_path("public", Rails.root)
-      @config = YAML.load_file(File.expand_path("config/qiniu_mock.yml", Rails.root))
+      @root = defined?(Rails) ? Rails.root : Dir.pwd
+      @root_public = File.expand_path("public", @root)
+      @config = YAML.load_file(File.expand_path("config/qiniu_mock.yml", @root))
       @separator = @config['separator'] || '-'
       @suffixs = @config['suffixs'] || {}
       yield self if block_given?
@@ -48,7 +49,7 @@ module Rack::QiniuMock
       config = @suffixs[path_format]
       return nil if config.nil?
 
-      original_path = @root + path.chomp(@separator + path_format)
+      original_path = @root_public + path.chomp(@separator + path_format)
       return nil unless File.exist?(original_path)
 
       res = MiniMagick::Image.open(original_path)
