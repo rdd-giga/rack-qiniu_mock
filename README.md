@@ -1,5 +1,7 @@
 # Rack::QiniuMock
 
+[![Build Status](https://secure.travis-ci.org/rdd-giga/rack-qiniu_mock.png?branch=master)](https://travis-ci.org/rdd-giga/rack-qiniu_mock)
+
 七牛云存储的开发辅助工具，方便地支持在本地进行图片缩放。
 
 七牛云存储的反向代理CDN+图片缩放的服务很好用，但有一个问题，在开发环境下，无法享受到该服务。这个 gem 提供了在开发环境下模拟七牛云存储基本图片缩放的功能。
