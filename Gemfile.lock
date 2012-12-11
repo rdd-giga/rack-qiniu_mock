@@ -11,6 +11,7 @@ GEM
     mini_magick (3.4)
       subexec (~> 0.2.1)
     rack (1.4.1)
+    rake (10.0.2)
     subexec (0.2.2)
 
 PLATFORMS
@@ -18,3 +19,4 @@ PLATFORMS
 
 DEPENDENCIES
   rack-qiniu_mock!
+  rake
